@@ -1,0 +1,125 @@
+@import '../../styles/variable.styl'
+
+.panel
+  flex 2
+  display flex
+  flex-direction column
+  align-items center
+  color #717181
+  .content
+    padding 40px 50px
+    height 380px
+    border-radius 5px
+    background rgba(255, 255, 255, 0.8)
+    backdrop-filter blur(10px)
+    display flex
+    flex-direction column
+    .polygon-type
+      display flex
+      align-items center
+      justify-content center
+      gap 16px
+      input[type='checkbox']
+        display none
+        appearance none
+        width 0
+        height 0
+      .switch
+        position relative
+        display block
+        width 40px
+        height 18px
+        border-radius 10px
+        cursor pointer
+        background-color #DDD
+      .switch:after
+        content ''
+        width 12px
+        height 12px
+        background-color #777
+        box-shadow 0 0 0 2px #FCFCFA
+        position absolute
+        border-radius 50%
+        top 3px
+        left 3px
+        transition all 0.5s
+      input[type='checkbox']:checked + .switch:after
+        left calc(100% - 3px)
+        transform translateX(-100%)
+    .panel-tabs
+      display flex
+      cursor pointer
+      input
+        display none
+      .tab
+        position relative
+        padding 8px
+        width 120px
+        border 1px solid $color-primary
+        text-align center
+        color $color-primary
+        cursor pointer
+        transition background 0.2s, color 0.2s
+        &:hover
+          background $color-primary-pale
+        &:active
+          background $color-primary
+          color #FFFFFF
+      .tab ~ .tab
+        margin-left -1px
+      input:checked + .tab
+        z-index 1
+        background $color-primary
+        color #FFFFFF
+      .tab:first-of-type
+        border-radius 4px 0 0 4px
+      .tab:last-of-type
+        border-radius 0 4px 4px 0
+    ul.panel-list
+      width 100%
+      padding 30px 0 0
+      padding-top 30px
+      display flex
+      flex-direction column
+      gap 20px
+      list-style-type none
+      font-size 14px
+      .panel-item
+        display flex
+        flex-direction column
+        gap 4px
+        .panel-item-content
+          display flex
+          align-items center
+          justify-content space-between
+          margin 0 1px
+          .panel-item-value
+            color $color-primary
+            font-style italic
+        input[type=range]
+          -webkit-appearance none
+          background-color transparent
+          outline none
+          border none
+          height 14px
+          flex 1 1 auto
+        input[type=range]::-webkit-slider-runnable-track
+          -webkit-appearance none
+          height 2px
+          border-radius 2px
+          background #E7E7EA
+        input[type=range]::-webkit-slider-thumb
+          -webkit-appearance none
+          width 14px
+          height 14px
+          margin-top -6px
+          background white
+          border 2px solid $color-primary
+          box-shadow 0 0 0 3px $color-primary-pale
+          border-radius 50%
+          cursor pointer
+          transition transform 0.2s
+          &:hover
+            transform scale(1.08)
+          // &:active
+          //   border-color $color-primary-accent

@@ -1,0 +1,36 @@
+{
+  "name": "poly-generator",
+  "version": "0.1.0",
+  "description": "A versatile library for generating equilateral polygons and stars.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "workspaces": [
+    "example"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "cd example && npm run dev",
+    "build:example": "cd example && npm run build",
+    "test": "jest"
+  },
+  "keywords": [
+    "polygon",
+    "polygen",
+    "regular polygon",
+    "equilateral polygon",
+    "polygon generator",
+    "star generator",
+    "polygon utils",
+    "polygon drawer"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.13",
+    "ts-jest": "^29.2.5",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}
