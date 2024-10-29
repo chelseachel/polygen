@@ -1,7 +1,8 @@
 **/node_modules/
-**/package-lock.json
 /dist
 /example/dist
 *.tsbuildinfo
 .vscode/
 .DS_Store
+.pnpm-store/
+.pnpm-debug.log
