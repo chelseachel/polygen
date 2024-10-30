@@ -5,6 +5,7 @@ export interface PolygonConfig {
   radius: number;
   innerRadius?: number;
   cornerRadius?: number;
+  rotation?: number;
   fill?: string;
   stroke?: string;
   strokeWidth?: number;

@@ -44,6 +44,12 @@ export const configData: ConfigData = {
     value: 0,
     min: 0,
     max: 140
+  },
+  rotation: {
+    label: 'Rotation',
+    value: 0,
+    min: 0,
+    max: 360
   }
 }
 

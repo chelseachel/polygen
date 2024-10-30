@@ -8,11 +8,11 @@ import { computePolygonVertices, computeStarVertices } from '../utils/vertices'
    * @returns An array of points defining the vertices of the polygon.
    */
 export function generateVertices(config: PolygonConfig): Point[] {
-	const { x, y, radius, innerRadius, npoints } = config;
+	const { x, y, radius, innerRadius, npoints, rotation } = config;
 	if (innerRadius) {
-		return computeStarVertices(x, y, radius, innerRadius, npoints);
+		return computeStarVertices(x, y, radius, innerRadius, npoints, rotation);
 	} else {
-		return computePolygonVertices(x, y, radius, npoints);
+		return computePolygonVertices(x, y, radius, npoints, rotation);
 	}
 }
 

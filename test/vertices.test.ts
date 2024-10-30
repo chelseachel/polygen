@@ -106,3 +106,33 @@ describe('computeStarVertices', () => {
 		]);
 	});
 });
+
+describe('Vertices Generation', () => {
+	describe('Rotation Tests', () => {
+		test('polygon should rotate 90 degrees correctly', () => {
+			const vertices = computePolygonVertices(0, 0, 100, 4, 90)
+			expect(Math.round(vertices[0][0])).toBe(100) // x ≈ 100
+			expect(Math.round(vertices[0][1])).toBe(0)   // y ≈ 0
+		})
+
+		test('star should rotate correctly', () => {
+			const vertices = computeStarVertices(0, 0, 100, 50, 5, 72)
+			const originalStar = computeStarVertices(0, 0, 100, 50, 5, 0)
+			expect(Math.round(vertices[0][0])).toBeCloseTo(Math.round(originalStar[2][0]))
+			expect(Math.round(vertices[0][1])).toBeCloseTo(Math.round(originalStar[2][1]))
+		})
+
+		test('rotation should not affect radius', () => {
+			const angles = [0, 45, 90, 180, 270]
+			const radius = 100
+			angles.forEach(angle => {
+				const vertices = computePolygonVertices(0, 0, radius, 6, angle)
+				// 检查所有顶点到中心的距离是否保持不变
+				vertices.forEach(point => {
+					const distance = Math.sqrt(point[0] * point[0] + point[1] * point[1])
+					expect(Math.round(distance)).toBe(radius)
+				})
+			})
+		})
+	})
+})
