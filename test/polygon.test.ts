@@ -18,7 +18,8 @@ describe('Polygon', () => {
       y: 0,
       radius: 100,
       npoints: 3,
-      corner: 0
+      corner: 0,
+      rotation: 0
     };
   });
 
@@ -32,14 +33,14 @@ describe('Polygon', () => {
     it('should compute points correctly for a polygon', () => {
       const result = generateVertices(mockConfig);
       expect(result).toEqual(points);
-      expect(computePolygonVertices).toHaveBeenCalledWith(0, 0, 100, 3);
+      expect(computePolygonVertices).toHaveBeenCalledWith(0, 0, 100, 3, 0);
     });
   
     it('should compute points correctly for a star', () => {
       const starConfig = { ...mockConfig, innerRadius: 50 };
       const result = generateVertices(starConfig);
       expect(result).toEqual(points);
-      expect(computeStarVertices).toHaveBeenCalledWith(0, 0, 100, 50, 3);
+      expect(computeStarVertices).toHaveBeenCalledWith(0, 0, 100, 50, 3, 0);
     });
   
     it('should generate paths from points correctly', () => {

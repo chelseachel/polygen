@@ -1,51 +1,19 @@
 @import '../../styles/variable.styl'
 
-.panel
+.panel-area
   flex 2
   display flex
   flex-direction column
   align-items center
-  color #717181
-  .content
+  .panel
+    max-height 100vh
+    overflow auto
     padding 40px 50px
-    height 440px
     border-radius 5px
     background rgba(255, 255, 255, 0.8)
     backdrop-filter blur(10px)
     display flex
     flex-direction column
-    .polygon-type
-      display flex
-      align-items center
-      justify-content center
-      gap 16px
-      input[type='checkbox']
-        display none
-        appearance none
-        width 0
-        height 0
-      .switch
-        position relative
-        display block
-        width 40px
-        height 18px
-        border-radius 10px
-        cursor pointer
-        background-color #DDD
-      .switch:after
-        content ''
-        width 12px
-        height 12px
-        background-color #777
-        box-shadow 0 0 0 2px #FCFCFA
-        position absolute
-        border-radius 50%
-        top 3px
-        left 3px
-        transition all 0.5s
-      input[type='checkbox']:checked + .switch:after
-        left calc(100% - 3px)
-        transform translateX(-100%)
     .panel-tabs
       display flex
       cursor pointer
@@ -72,13 +40,13 @@
         background $color-primary
         color #FFFFFF
       .tab:first-of-type
-        border-radius 4px 0 0 4px
+        border-radius 5px 0 0 5px
       .tab:last-of-type
-        border-radius 0 4px 4px 0
+        border-radius 0 5px 5px 0
     ul.panel-list
       width 100%
-      padding 30px 0 0
-      padding-top 30px
+      height 486px
+      padding 30px 0
       display flex
       flex-direction column
       gap 20px
@@ -88,15 +56,14 @@
         display flex
         flex-direction column
         gap 4px
-        .panel-item-content
+        .panel-item-header
           display flex
           align-items center
           justify-content space-between
-          margin 0 1px
           cursor default
           .panel-item-value
+            position relative
             color $color-primary
-            font-style italic
         input[type=range]
           -webkit-appearance none
           background-color transparent
@@ -108,7 +75,7 @@
           -webkit-appearance none
           height 2px
           border-radius 2px
-          background #E7E7EA
+          background $light-gray
         input[type=range]::-webkit-slider-thumb
           -webkit-appearance none
           width 14px
@@ -122,5 +89,31 @@
           transition transform 0.2s
           &:hover
             transform scale(1.08)
-          // &:active
-          //   border-color $color-primary-accent
+        .color-info
+          display flex
+          justify-content space-between
+          align-items center
+          margin-left 1px
+          margin-top 4px
+          .color-swatches
+            display flex
+            gap 8px
+            .color-swatch
+              width 16px
+              height 16px
+              border-radius 50%
+              cursor pointer
+          .color-display
+            position relative
+            input[type='color']
+              position absolute
+              width 100%
+              height 100%
+              padding 0
+              opacity 0
+              cursor pointer
+            .color-value
+              width 18px
+              height 18px
+              border-radius 5px
+              border 1px solid $light-gray

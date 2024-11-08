@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { Polygon, PolygonConfig } from 'poly-generator'
+import { Polygon, PolygonConfig, CanvasDrawingStyle } from 'poly-generator'
 import './style.styl'
 
 interface CanvasSize {
@@ -9,9 +9,10 @@ interface CanvasSize {
 
 interface CanvasProps {
   polygonConfig: PolygonConfig
+  styleConfig: Partial<CanvasDrawingStyle>
 }
 
-export default function Canvas ({ polygonConfig }: CanvasProps) {
+export default function Canvas ({ polygonConfig, styleConfig }: CanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [canvasSize, setCanvasSize] = useState<CanvasSize>({
@@ -29,12 +30,6 @@ export default function Canvas ({ polygonConfig }: CanvasProps) {
     context.scale(ratio, ratio)
   }, [])
 
-  const styleOptions = {
-    fill: 'white',
-    stroke: 'black',
-    strokeWidth: 2
-  }
-
   const handleDraw = () => {
     if (polygonConfig === undefined) return
     const canvas = canvasRef.current as HTMLCanvasElement
@@ -46,10 +41,9 @@ export default function Canvas ({ polygonConfig }: CanvasProps) {
     const config: PolygonConfig = {
       x: offsetWidth / 2,
       y: offsetHeight / 2,
-      ...polygonConfig,
-      ...styleOptions
+      ...polygonConfig
     }
-    const polygon = new Polygon(config)
+    const polygon = new Polygon(config, styleConfig)
     polygon.draw(ctx)
   }
 
@@ -69,7 +63,7 @@ export default function Canvas ({ polygonConfig }: CanvasProps) {
 
   useEffect(() => {
     handleDraw()
-  }, [polygonConfig, canvasSize])
+  }, [polygonConfig, styleConfig, canvasSize])
 
   return (
     <div className="canvas-container" ref={containerRef}>

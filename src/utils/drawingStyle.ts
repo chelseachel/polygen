@@ -26,7 +26,7 @@ export function applyDrawingStyle(ctx: CanvasRenderingContext2D, drawingStyle: P
 	ctx.lineDashOffset = style.lineDashOffset
 	ctx.lineCap = style.lineCap
 	ctx.lineJoin = style.lineJoin
-	ctx.miterLimit = style.miterLimit
+	ctx.miterLimit = Math.min(style.miterLimit, strokeWidth * 2)
 	ctx.shadowOffsetX = style.shadowOffsetX;  
 	ctx.shadowOffsetY = style.shadowOffsetY;  
 	ctx.shadowBlur = style.shadowBlur;  

@@ -1,21 +1,33 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { PolygonConfig } from 'poly-generator'
-import { configData, getConfig, PolygonType, ConfigItem } from './config';
+import { PolygonConfig, CanvasDrawingStyle } from 'poly-generator';
+import {
+  baseFields,
+  getConfig,
+  PolygonType,
+  ConfigFieldItem,
+  BaseConfigFields,
+  styleFields
+} from './config';
+import PanelItem from './PanelItem';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './style.styl';
 
 interface PanelProps {
   setPolygonConfig: (config: PolygonConfig) => void;
+  setStyleConfig: (config: Partial<CanvasDrawingStyle>) => void;
 }
 
-export default function Panel({ setPolygonConfig }: PanelProps) {
+export default function Panel({ setPolygonConfig, setStyleConfig }: PanelProps) {
   const [type, setType] = useState(PolygonType.Polygon);
-  const [configItems, setConfigItems] = useState<Record<string, ConfigItem>>(configData);
+  const [configItems, setConfigItems] = useState<BaseConfigFields>(baseFields);
+  const [styleConfigItems, setStyleConfigItems] =
+    useState<Record<string, ConfigFieldItem>>(styleFields);
 
   const filterConfigItems = useMemo(
     () =>
       Object.fromEntries(
-        Object.entries(configData).filter(([key]) => {
-          const filterTypes = configData[key].filterTypes;
+        Object.entries(baseFields).filter(([key]) => {
+          const filterTypes = baseFields[key].filterTypes;
           return !filterTypes || filterTypes.includes(type);
         })
       ),
@@ -30,66 +42,85 @@ export default function Panel({ setPolygonConfig }: PanelProps) {
     setPolygonConfig(getConfig(configItems));
   }, [configItems]);
 
+  useEffect(() => {
+    setStyleConfig(getConfig(styleConfigItems));
+  }, [styleConfigItems]);
 
   const handleChangeConfig = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, valueAsNumber } = e.target;
-    setConfigItems(prevItems => {  
-      const newItems = { ...prevItems };  
-      newItems[name].value = valueAsNumber;  
-      return newItems;  
-    })
-  }
+    setConfigItems(prevItems => {
+      const newItems = { ...prevItems };
+      newItems[name].value = valueAsNumber;
+      return newItems;
+    });
+  };
 
-  const panelItems = Object.keys(configItems).map(key => {
-    const configItem = configData[key];
-    const value = configData[key].value;
-    return (
-      <li className="panel-item" key={key}>
-        <div className="panel-item-content">
-          <span className="panel-item-name">{configItem.label}</span>
-          <span className="panel-item-value">{value}</span>
-        </div>
-        <input
-          type="range"
-          name={key}
-          value={value}
-          min={configItem.min}
-          max={configItem.max}
-          step={1}
-          onChange={handleChangeConfig}
-        />
-      </li>
-    );
-  });
+  const handleChangeStyleConfig = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const { name, value, type } = e.target;
+    setStyleConfigItems(prevItems => {
+      const newItems = { ...prevItems };
+      if (newItems[name]) {
+        newItems[name].value = type === 'color' ? value.toUpperCase() : value;
+      }
+      return newItems;
+    });
+  };
 
   return (
-    <div className="panel">
-      <div className="content">
-        <div className="panel-tabs">
-          <input
-            type="radio"
-            name="type"
-            id="polygon"
-            checked={type === PolygonType.Polygon}
-            onChange={() => setType(PolygonType.Polygon)}
-          ></input>
-          <label htmlFor="polygon" className="tab">
-            POLYGON
-          </label>
+    <div className="panel-area">
+      <div className="panel">
+        <div className="config-panel">
+          <div className="panel-tabs">
+            <input
+              type="radio"
+              name="type"
+              id="polygon"
+              checked={type === PolygonType.Polygon}
+              onChange={() => setType(PolygonType.Polygon)}
+            />
+            <label htmlFor="polygon" className="tab">
+              POLYGON
+            </label>
 
-          <input
-            type="radio"
-            name="type"
-            id="star"
-            checked={type === PolygonType.Star}
-            onChange={() => setType(PolygonType.Star)}
-          ></input>
-          <label htmlFor="star" className="tab">
-            STAR
-          </label>
+            <input
+              type="radio"
+              name="type"
+              id="star"
+              checked={type === PolygonType.Star}
+              onChange={() => setType(PolygonType.Star)}
+            />
+            <label htmlFor="star" className="tab">
+              STAR
+            </label>
+          </div>
+
+          <ul className={`panel-list ${type}`}>
+            {Object.keys(configItems).map(key => {
+              const field = configItems[key];
+              return (
+                <PanelItem
+                  key={key}
+                  name={key}
+                  field={field}
+                  onChange={handleChangeConfig}
+                />
+              );
+            })}
+            {Object.keys(styleConfigItems).map(key => {
+              const field = styleConfigItems[key];
+              return (
+                <PanelItem
+                  key={key}
+                  name={key}
+                  field={field}
+                  onChange={handleChangeStyleConfig}
+                />
+              );
+            })}
+          </ul>
         </div>
-
-        <ul className="panel-list">{panelItems}</ul>
       </div>
     </div>
   );
