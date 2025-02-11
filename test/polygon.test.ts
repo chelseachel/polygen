@@ -177,8 +177,8 @@ describe('Polygon', () => {
         stroke: 'blue',
         strokeWidth: 5
       };
-      const polygon = new Polygon(mockConfig, drawingStyle);
-      polygon.draw(ctx as unknown as CanvasRenderingContext2D);
+      const polygon = new Polygon(mockConfig);
+      polygon.draw(ctx as unknown as CanvasRenderingContext2D, drawingStyle);
       expect(ctx.fillStyle).toBe('red');
       expect(ctx.strokeStyle).toBe('blue');
       expect(ctx.lineWidth).toBe(5);

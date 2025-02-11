@@ -36,13 +36,6 @@ export const baseFields: BaseConfigFields = {
     min: 3,
     max: 64
   },
-  cornerRadius: {
-    label: 'Corner Radius',
-    type: 'range',
-    value: 0,
-    min: 0,
-    max: 140
-  },
   radius: {
     label: 'Outer Radius',
     type: 'range',
@@ -57,6 +50,13 @@ export const baseFields: BaseConfigFields = {
     min: 1,
     max: 280,
     filterTypes: [PolygonType.Star]
+  },
+  cornerRadius: {
+    label: 'Corner Radius',
+    type: 'range',
+    value: 0,
+    min: 0,
+    max: 140
   },
   rotation: {
     label: 'Rotation',

@@ -1,28 +1,35 @@
 @import '../../styles/variable.styl'
 
 .panel-area
-  flex 2
+  position relative
+  flex 1
   display flex
-  flex-direction column
-  align-items center
+  align-items flex-start
+  flex-direction: row-reverse
+  gap 6px
   .panel
+    position relative
+    width 350px
     max-height 100vh
+    height 632px
     overflow auto
-    padding 40px 50px
+    padding 40px 30px
     border-radius 5px
     background rgba(255, 255, 255, 0.8)
     backdrop-filter blur(10px)
     display flex
     flex-direction column
+
     .panel-tabs
       display flex
       cursor pointer
+      margin 0 20px
       input
         display none
       .tab
         position relative
         padding 8px
-        width 120px
+        width 50%
         border 1px solid $color-primary
         text-align center
         color $color-primary
@@ -43,10 +50,12 @@
         border-radius 5px 0 0 5px
       .tab:last-of-type
         border-radius 0 5px 5px 0
+    .section-settings
+      margin-top 30px 
+      flex 1
     ul.panel-list
       width 100%
-      height 486px
-      padding 30px 0
+      padding 0 20px
       display flex
       flex-direction column
       gap 20px
@@ -56,6 +65,7 @@
         display flex
         flex-direction column
         gap 4px
+        user-select none
         .panel-item-header
           display flex
           align-items center
@@ -71,6 +81,7 @@
           border none
           height 14px
           flex 1 1 auto
+          cursor pointer
         input[type=range]::-webkit-slider-runnable-track
           -webkit-appearance none
           height 2px
@@ -85,7 +96,6 @@
           border 2px solid $color-primary
           box-shadow 0 0 0 3px $color-primary-pale
           border-radius 50%
-          cursor pointer
           transition transform 0.2s
           &:hover
             transform scale(1.08)
@@ -101,7 +111,7 @@
             .color-swatch
               width 16px
               height 16px
-              border-radius 50%
+              border-radius 5px
               cursor pointer
           .color-display
             position relative
@@ -117,3 +127,42 @@
               height 18px
               border-radius 5px
               border 1px solid $light-gray
+
+    .section-code
+      margin 36px 8px 0
+      flex 1
+      
+      .code-block
+        margin 0px
+        height 100%
+        padding 10px
+        background #fff
+        border-radius 5px
+        border 1px dotted $color-primary-pale
+        font-family monospace
+        font-size 13px
+        line-height 1.5
+        color $color-primary-accent
+
+        code
+          white-space pre-wrap
+
+  .mode-button
+    width: 32px
+    height: 32px
+    margin-top 0px
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius 5px
+    background rgba(255, 255, 255, 0.8)
+    backdrop-filter blur(10px)
+    font-size 12px
+    color $color-primary
+    cursor pointer
+    transition: all 0.3s ease
+    &:hover
+      background: $color-primary-pale
+    &.active
+      background $color-primary
+      color white

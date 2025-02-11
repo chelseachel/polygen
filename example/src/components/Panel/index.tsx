@@ -17,11 +17,15 @@ interface PanelProps {
   setStyleConfig: (config: Partial<CanvasDrawingStyle>) => void;
 }
 
-export default function Panel({ setPolygonConfig, setStyleConfig }: PanelProps) {
+export default function Panel({
+  setPolygonConfig,
+  setStyleConfig
+}: PanelProps) {
   const [type, setType] = useState(PolygonType.Polygon);
   const [configItems, setConfigItems] = useState<BaseConfigFields>(baseFields);
   const [styleConfigItems, setStyleConfigItems] =
     useState<Record<string, ConfigFieldItem>>(styleFields);
+  const [isCodeMode, setIsCodeMode] = useState(false);
 
   const filterConfigItems = useMemo(
     () =>
@@ -68,59 +72,95 @@ export default function Panel({ setPolygonConfig, setStyleConfig }: PanelProps) 
     });
   };
 
+  const togglePanelMode = () => {
+    setIsCodeMode(prev => !prev);
+  };
+
+  const generateConfigCode = () => {
+    const config = getConfig(configItems);
+    const style = getConfig(styleConfigItems);
+    
+    return `const paths = polygen.generate({
+  npoints: ${config.npoints},
+  radius: ${config.radius},${type === PolygonType.Star ? `
+  innerRadius: ${config.innerRadius},` : ''}
+  cornerRadius: ${config.cornerRadius},
+  rotation: ${config.rotation}
+});
+
+polygen.draw(paths, ctx, {
+  strokeWidth: ${style.strokeWidth},
+  fill: '${style.fill}',
+  stroke: '${style.stroke}'
+});`;
+  };
+
   return (
     <div className="panel-area">
       <div className="panel">
-        <div className="config-panel">
-          <div className="panel-tabs">
-            <input
-              type="radio"
-              name="type"
-              id="polygon"
-              checked={type === PolygonType.Polygon}
-              onChange={() => setType(PolygonType.Polygon)}
-            />
-            <label htmlFor="polygon" className="tab">
-              POLYGON
-            </label>
+        <div className="panel-tabs">
+          <input
+            type="radio"
+            name="type"
+            id="polygon"
+            checked={type === PolygonType.Polygon}
+            onChange={() => setType(PolygonType.Polygon)}
+          />
+          <label htmlFor="polygon" className="tab">
+            POLYGON
+          </label>
 
-            <input
-              type="radio"
-              name="type"
-              id="star"
-              checked={type === PolygonType.Star}
-              onChange={() => setType(PolygonType.Star)}
-            />
-            <label htmlFor="star" className="tab">
-              STAR
-            </label>
-          </div>
-
-          <ul className={`panel-list ${type}`}>
-            {Object.keys(configItems).map(key => {
-              const field = configItems[key];
-              return (
-                <PanelItem
-                  key={key}
-                  name={key}
-                  field={field}
-                  onChange={handleChangeConfig}
-                />
-              );
-            })}
-            {Object.keys(styleConfigItems).map(key => {
-              const field = styleConfigItems[key];
-              return (
-                <PanelItem
-                  key={key}
-                  name={key}
-                  field={field}
-                  onChange={handleChangeStyleConfig}
-                />
-              );
-            })}
-          </ul>
+          <input
+            type="radio"
+            name="type"
+            id="star"
+            checked={type === PolygonType.Star}
+            onChange={() => setType(PolygonType.Star)}
+          />
+          <label htmlFor="star" className="tab">
+            STAR
+          </label>
         </div>
+
+        {!isCodeMode ? (
+          <div className="section-settings">
+            <ul className={`panel-list ${type}`}>
+              {Object.keys(configItems).map(key => {
+                const field = configItems[key];
+                return (
+                  <PanelItem
+                    key={key}
+                    name={key}
+                    field={field}
+                    onChange={handleChangeConfig}
+                  />
+                );
+              })}
+              {Object.keys(styleConfigItems).map(key => {
+                const field = styleConfigItems[key];
+                return (
+                  <PanelItem
+                    key={key}
+                    name={key}
+                    field={field}
+                    onChange={handleChangeStyleConfig}
+                  />
+                );
+              })}
+            </ul>
+          </div>
+        ) : (
+          <div className="section-code">
+            <pre className="code-block">
+              <code>{generateConfigCode()}</code>
+            </pre>
+          </div>
+        )}
+      </div>
+      <div 
+        className={`mode-button fa-solid fa-code ${isCodeMode ? 'active' : ''}`} 
+        onClick={togglePanelMode}
+      >
       </div>
     </div>
   );

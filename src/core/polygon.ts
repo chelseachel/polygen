@@ -4,7 +4,6 @@ import { generateVertices, generatePathsFromVertices } from './utils';
 
 export class Polygon {
   public config: PolygonConfig;
-  public drawingStyle: Partial<CanvasDrawingStyle> = {};
   public points: Point[] = [];
   public paths: PathSegment[] = [];
 
@@ -14,11 +13,9 @@ export class Polygon {
    * @param config - The configuration object for the polygon. 
    *                 This object defines the properties of the polygon, including its
    *                 position, size, number of sides, and optional styling attributes.
-	 * @param drawingStyle - Optional drawing style object for the polygon.
    */
-  constructor(config: PolygonConfig, drawingStyle?: Partial<CanvasDrawingStyle>) {
+  constructor(config: PolygonConfig) {
     this.config = config;
-    this.drawingStyle = drawingStyle || {};
     this.generate(config);
   }
 
@@ -34,10 +31,11 @@ export class Polygon {
   /**
    * Draws the polygon on the given canvas rendering context.
    * @param ctx - The canvas rendering context.
+   * @param drawingStyle - Optional drawing style object for the polygon.
    */
-  public draw(ctx: CanvasRenderingContext2D | null): void {
+  public draw(ctx: CanvasRenderingContext2D | null, drawingStyle?: Partial<CanvasDrawingStyle>): void {
     if (!ctx) return;
-    applyDrawingStyle(ctx, this.drawingStyle);
+    applyDrawingStyle(ctx, drawingStyle);
     ctx.beginPath();
     this.paths.forEach((item) => {
       switch (item.type) {

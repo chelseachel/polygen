@@ -43,8 +43,8 @@ export default function Canvas ({ polygonConfig, styleConfig }: CanvasProps) {
       y: offsetHeight / 2,
       ...polygonConfig
     }
-    const polygon = new Polygon(config, styleConfig)
-    polygon.draw(ctx)
+    const polygon = new Polygon(config)
+    polygon.draw(ctx, styleConfig)
   }
 
   useEffect(() => {  
@@ -67,7 +67,7 @@ export default function Canvas ({ polygonConfig, styleConfig }: CanvasProps) {
 
   return (
     <div className="canvas-container" ref={containerRef}>
-      <canvas id="polygon-canvas" ref={canvasRef}></canvas>
+      <canvas id="canvas" ref={canvasRef}></canvas>
     </div>
   )
 }
