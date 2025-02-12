@@ -135,7 +135,7 @@ const star = new Polygon({
 
 ## Live Demo
 
-Visit [Polygen Playground]() to try it online. <!-- TODO: Demo URL -->
+Visit [Polygen Playground](https://chelseachel.github.io/polygen/) to try it online.
 
 ## License
 
