@@ -2,6 +2,14 @@
   "name": "poly-generator",
   "version": "0.1.0",
   "description": "A versatile library for generating equilateral polygons and stars.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "@chelseachel:registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chelseachel/polygen.git"
+  },
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
