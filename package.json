@@ -8,8 +8,8 @@
   "browser": "dist/index.js",
   "scripts": {
     "build": "tsup",
-    "dev": "cd example && npm run dev",
-    "build:example": "cd example && npm run build",
+    "dev": "cd example && pnpm dev",
+    "build:example": "cd example && pnpm build",
     "test": "jest",
     "prepublishOnly": "npm version patch -m \"chore(release): %s\""
   },

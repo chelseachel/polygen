@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
+  base: '/polygen/',
   build: {
     outDir: '../dist/example',
     emptyOutDir: true
