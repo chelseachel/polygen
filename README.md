@@ -1,6 +1,10 @@
 # polygen
 A versatile library for generating equilateral polygons and stars.
 
+## Live Demo
+
+Visit [Polygen Playground](https://chelseachel.github.io/polygen/) to try it online.
+
 ## Installation
 
 ```bash
@@ -133,9 +137,6 @@ const star = new Polygon({
 | shadowOffsetX | number | 0 | Shadow X offset |
 | shadowOffsetY | number | 0 | Shadow Y offset |
 
-## Live Demo
-
-Visit [Polygen Playground](https://chelseachel.github.io/polygen/) to try it online.
 
 ## License
 
