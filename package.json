@@ -11,7 +11,7 @@
     "dev": "cd example && pnpm dev",
     "build:example": "cd example && pnpm build",
     "test": "jest",
-    "prepublishOnly": "npm version patch -m \"chore(release): %s\""
+    "prepublishOnly": "pnpm version patch -m \"chore(release): %s\""
   },
   "keywords": [
     "polygon",
