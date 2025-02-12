@@ -1,6 +1,6 @@
 {
   "name": "poly-generator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A versatile library for generating equilateral polygons and stars.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
