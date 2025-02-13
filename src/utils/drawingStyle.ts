@@ -7,7 +7,7 @@ const defaultDrawingStyle: CanvasDrawingStyle = {
   lineDash: [],
   lineDashOffset: 0,
   lineCap: 'butt',
-  lineJoin: 'miter',
+  lineJoin: 'round',
   miterLimit: 10,
   shadowColor: 'transparent',
   shadowBlur: 0,
